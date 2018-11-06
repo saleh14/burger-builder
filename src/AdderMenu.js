@@ -31,14 +31,14 @@ export default class AdderMenu extends Component {
     return (
       <StyledMenu>
         <div>
-          {' '}<a name='Cheese' href='#' onClick={this.handleSelect}>cheese</a>
+          <a name='Cheese' href='#' onClick={this.handleSelect}>cheese</a>
         </div>
         <div> <a name='Meat' href='#' onClick={this.handleSelect}>meat</a></div>
         <div>
-          {' '}<a name='Tomato' href='#' onClick={this.handleSelect}>tomato </a>
+          <a name='Tomato' href='#' onClick={this.handleSelect}>tomato </a>
         </div>
         <div>
-          {' '}<a name='Salad' href='#' onClick={this.handleSelect}>salad</a>
+          <a name='Salad' href='#' onClick={this.handleSelect}>salad</a>
         </div>
       </StyledMenu>
     )

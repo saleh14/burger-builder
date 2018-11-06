@@ -2,7 +2,6 @@ import React, { Component, useState } from 'react'
 import styled from 'styled-components'
 import { ReactComponent as PlusIcon } from './icons8-plus.svg'
 import Layer from './Layers/Layer'
-import Cheese from './Layers/Cheese'
 import AdderMenu from './AdderMenu'
 const Burger = styled.div`
   background-color:#e5555f;
@@ -58,15 +57,26 @@ class BurgerBuilder extends Component {
     }))
   }
   addLayer = name => {
-    console.log(PlusIcon())
-    const layers = [...this.state.layers, name]
-    this.setState({ show: false, layers })
+    const layers = [
+      ...this.state.layers,
+      { name, order: this.state.layers.length - 1 }
+    ]
+    const layersWithIDs = layers.map((layer, index) => ({
+      ...layer,
+      id: layer.name + index
+    }))
+    this.setState({ show: false, layers: layersWithIDs })
+  }
+  handleAction = (actionName, id) => {
+    console.log('action:', actionName, id)
+    const layers = [...this.state.layers]
+    layers.forEach(layer => (layer.id === id ? layer.order-- : layer.order))
+    layers.sort((a, b) => a.order - b.order)
+    this.setState({ layers })
   }
   render () {
-    const ch = 'Cheese'
     return (
       <Burger>
-
         <div className='header'>
           <div className='wrapper'>
             <div className='title'>Build your Humburger now </div>
@@ -81,8 +91,15 @@ class BurgerBuilder extends Component {
         </div>
         <div className='content'>
           <div className='contentWrapper'>
-            {this.state.layers.map(layer => {
-              return <Layer type={layer} />
+            {this.state.layers.map((layer, index) => {
+              return (
+                <Layer
+                  key={index}
+                  type={layer.name}
+                  id={layer.id}
+                  actionEvent={this.handleAction}
+                />
+              )
             })}
           </div>
         </div>

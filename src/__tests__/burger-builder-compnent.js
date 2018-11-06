@@ -12,6 +12,7 @@ test('should render layers wrapped inside Layer components', () => {
   expect(getByText(/cheese/i)).not.toBeNull()
 
   fireEvent.click(getByText(/cheese/i))
+  expect(getByText(/cheese layer/i)).not.toBeNull()
 
   debug(container)
 })

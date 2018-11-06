@@ -13,7 +13,8 @@
     "styled-components": "^4.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:app": "react-scripts start",
+    "start": "npm-run-all --parallel start:*",
     "start:server": "netlify-lambda serve functions",
     "build": "react-scripts build",
     "test": "react-scripts test",
