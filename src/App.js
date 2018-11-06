@@ -1,28 +1,50 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import BurgerBuilder from './BurgerBuilder'
+
+function handleClick (e, data) {
+  console.log(data.foo)
+}
+
+const StyledApp = styled.div`
+  background-color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  header{
+    display:block;
+    margin: 0 auto;
+    background-color: #f44444;
+    max-width: 1200px;
+    width: 100%;
+    height: 166px;
+    font-size: 2.3 em;
+    h1{
+      color: white;
+      margin: 0 auto;
+      display: block;
+      width: 333px;
+      padding-top:42px;
+    }
+  }
+`
 
 class App extends Component {
-  render() {
+  state = { data: null }
+  async componentDidMount () {
+    const data = await fetch('/.netlify/functions/some-fn').then(d => d.json())
+    console.log(data)
+    this.setState({ data })
+  }
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <StyledApp>
+        <header>
+          <h1>Burger Builder</h1>
         </header>
-      </div>
-    );
+        <BurgerBuilder />
+      </StyledApp>
+    )
   }
 }
 
-export default App;
+export default App
